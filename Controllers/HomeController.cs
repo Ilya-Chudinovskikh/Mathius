@@ -28,8 +28,7 @@ namespace Project.Controllers
         {
             return View();
         }
-        //[Authorize(Roles="Admin")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult Secured()
         {
             return View();
