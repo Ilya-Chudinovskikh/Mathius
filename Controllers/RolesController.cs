@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Project.Controllers
 {
-    [Authorize(Roles="Admin")]
+    //[Authorize(Roles="Admin")]
+    [AllowAnonymous]
     public class RolesController : Controller
     {
         RoleManager<IdentityRole> _roleManager;
