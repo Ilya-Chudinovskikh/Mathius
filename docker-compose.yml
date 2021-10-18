@@ -1,0 +1,27 @@
+version: '3.4'
+
+networks:
+  sample_proj:
+    driver: bridge
+
+services:
+  project:
+    image: ${DOCKER_REGISTRY-}project
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    networks:
+      - sample_proj
+    restart: unless-stopped
+  postgres_image:
+    container_name: database
+    image: postgres:latest
+    ports: 
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    networks:
+      - sample_proj

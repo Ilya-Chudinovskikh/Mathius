@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome on board, mathius!</h1>
+    <p>
+        <div>
+            <a asp-controller="Exercises" asp-action="Index">Explore now</a>
+        </div>
+        <div>
+            <a>or</a>
+        </div>
+        <div>
+            <a asp-area="Identity" asp-page="/Account/Register">Join us us and get started</a>
+        </div>
+    </p>
+</div>

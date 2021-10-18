@@ -1,0 +1,97 @@
+﻿@model Project.Models.Exercise
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Exercise</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Conditions)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Conditions)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tags)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tags)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pictures)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pictures)
+        </dd>
+        @*<dt class="col-sm-2">
+                <a>Right answers</a>
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RightAnswers)
+            </dd>*@
+        <dt class="col-sm-2">
+            <a>Author</a>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OwnerID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        @if (Model.OwnerID == User.Identity.Name || User.IsInRole("Admin"))
+        {
+            <dt class="col-sm-2">
+                <a>Right answers</a>
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RightAnswers)
+            </dd>
+        }
+    </dl>
+</div>
+@if (!(Model.UsersSolved.Split().Any(x => x == User.Identity.Name) || User.IsInRole("Admin")))
+{
+    <form typeof="post" asp-controller="Exercises" asp-action="CheckAnswer">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input class="form-control" required placeholder="Your answer" id="userAnswerInput" name="answer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+}
+else
+{
+    <div>
+        <a>Exercise is done.</a>
+    </div>
+}
+@if (Model.OwnerID == User.Identity.Name || User.IsInRole("Admin"))
+{
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index"> Back to List</a>
+    </div>
+}
+else
+{
+    <div>
+        <a asp-action="Index"> Back to List</a>
+    </div>
+}
