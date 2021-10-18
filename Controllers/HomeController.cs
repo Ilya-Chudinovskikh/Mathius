@@ -29,6 +29,7 @@ namespace Project.Controllers
             return View();
         }
         //[Authorize(Roles="Admin")]
+        [AllowAnonymous]
         public IActionResult Secured()
         {
             return View();
